@@ -14,7 +14,7 @@ This is a simple chat server using Node.js, Express, and Socket.io.
 
    ```bash
    git clone
-   cd backend_evivve_assignment
+   cd evivve_assignment
    ```
 
 2. Install dependencies:
