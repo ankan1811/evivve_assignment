@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Real-Time Chat</title>
+  </head>
+  <body>
+    <label for="room">Room ID:</label>
+    <input type="text" id="room" />
+    <button onclick="joinRoom()">Join Room</button>
+    <ul id="messages"></ul>
+    <form id="form" action="" method="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      var socket;
+
+      function joinRoom() {
+        var room = $("#room").val();
+        socket.emit("join room", room);
+      }
+
+      $(function () {
+        socket = io();
+
+        $("form").submit(function () {
+          var room = $("#room").val();
+          socket.emit("chat message", $("#m").val(), room);
+          $("#m").val("");
+          return false;
+        });
+
+        socket.on("chat message", function (msg) {
+          $("#messages").append($("<li>").text(msg));
+        });
+      });
+    </script>
+  </body>
+</html>
